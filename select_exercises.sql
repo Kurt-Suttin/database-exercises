@@ -22,7 +22,7 @@ WHERE name = 'Nevermind';
 
 SELECT name
 FROM albums
-WHERE release_date BETWEEN '1990-01-01' AND '1999-12-31' ;
+WHERE release_date BETWEEN 1990 AND 1999 ;
 
 # Which albums had less than 20 million certified sales
 SELECT * FROM albums WHERE sales < 20;
