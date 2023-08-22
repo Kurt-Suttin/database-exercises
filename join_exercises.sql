@@ -62,18 +62,6 @@
 
 
 Use employees;
-SHOW TABLES;
-DESCRIBE dept_manager;
-DESCRIBE departments;
-CREATE TABLE department_managers
-(
-    departments_id CHAR(4) NOT NULL,
-    managers_id    INT     NOT NULL,
-    CONSTRAINT department_managers_deparment_id_fk FOREIGN KEY (departments_id) REFERENCES departments (dept_no),
-    CONSTRAINT department_managers_managers_id_fk FOREIGN KEY (managers_id) REFERENCES dept_manager (emp_no)
-);
-SHOW TABLES;
-describe employees;
 
 
 SELECT d.dept_name AS "Deparment Name", CONCAT(e.first_name, ' ', e.last_name) AS "Department Manager"
@@ -82,7 +70,6 @@ FROM employees as e
          JOIN departments as d ON d.dept_no = dm.dept_no
 WHERE dm.to_date = '9999-01-01';
 
-
 SELECT d.dept_name AS "Deparment Name", CONCAT(e.first_name, ' ', e.last_name) AS "Department Manager"
 FROM employees as e
          JOIN dept_manager as dm ON dm.emp_no = e.emp_no
@@ -90,19 +77,30 @@ FROM employees as e
 WHERE dm.to_date = '9999-01-01'
   AND e.gender = 'F';
 
-
-
 DESCRIBE dept_emp;
 # Find the current titles of employees currently working in the Customer Service department.
 
-
-SELECT t.title AS title , COUNT(de.emp_no) AS total
+SELECT t.title AS title, COUNT(de.emp_no) AS total
 From titles t
-JOIN dept_emp de
-ON de.emp_no = t.emp_no
+         JOIN dept_emp de
+              ON de.emp_no = t.emp_no
 WHERE de.dept_no = 'd009'
-AND t.to_date = '9999-01-01'
-AND de.to_date = '9999-01-01'
+  AND t.to_date = '9999-01-01'
+  AND de.to_date = '9999-01-01'
 GROUP BY t.title;
+
+
+# Find the current salary of all current managers.
+
+SELECT d.dept_name                            AS "Deparment Name",
+       CONCAT(e.first_name, ' ', e.last_name) AS "Department Manager",
+       s.salary                               AS Salary
+FROM employees as e
+         JOIN dept_manager as dm ON dm.emp_no = e.emp_no
+         JOIN departments as d ON d.dept_no = dm.dept_no
+         JOIN salaries s on e.emp_no = s.emp_no
+WHERE dm.to_date = '9999-01-01'
+  AND s.to_date = '9999-01-01'
+ORDER BY d.dept_name;
 
 
