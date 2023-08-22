@@ -1,6 +1,7 @@
 use employees;
 
-SELECT DISTINCT title FROM titles;
+SELECT DISTINCT title
+FROM titles;
 
 SELECT DISTINCT last_name
 FROM employees
