@@ -54,13 +54,12 @@ WHERE first_name LIKE 'E%'
 ORDER BY emp_no;
 
 -- Find all employees born on Christmas (December 25)
--- Total 842 rows
+
 SELECT *
 FROM employees
 WHERE MONTH(birth_date) = 12 AND DAYOFMONTH(birth_date) = 25;
 
 -- Find all employees hired in the 90s and born on Christmas (December 25)
--- Total 362 rows
 SELECT *
 FROM employees
 WHERE YEAR(hire_date) BETWEEN 1990 AND 1999
@@ -78,7 +77,8 @@ LIMIT 1;
 -- Find all employees born on Christmas (December 25) and hired in the 90s
 -- Calculate days of employment using datediff() and curdate()
 SELECT *,
-       DATEDIFF(CURDATE(), hire_date) AS days_employed
+       DATEDIFF(CURDATE(), hire_date)
 FROM employees
 WHERE YEAR(hire_date) BETWEEN 1990 AND 1999
   AND MONTH(birth_date) = 12 AND DAYOFMONTH(birth_date) = 25;
+
