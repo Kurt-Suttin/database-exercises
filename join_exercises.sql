@@ -70,12 +70,15 @@ FROM employees as e
          JOIN departments as d ON d.dept_no = dm.dept_no
 WHERE dm.to_date = '9999-01-01';
 
+
+
 SELECT d.dept_name AS "Deparment Name", CONCAT(e.first_name, ' ', e.last_name) AS "Department Manager"
 FROM employees as e
          JOIN dept_manager as dm ON dm.emp_no = e.emp_no
          JOIN departments as d ON d.dept_no = dm.dept_no
 WHERE dm.to_date = '9999-01-01'
-  AND e.gender = 'F';
+  AND e.gender LIKE 'F'
+ORDER BY d.dept_name;
 
 DESCRIBE dept_emp;
 # Find the current titles of employees currently working in the Customer Service department.
@@ -92,7 +95,8 @@ GROUP BY t.title;
 
 # Find the current salary of all current managers.
 
-SELECT d.dept_name                            AS "Deparment Name",
+SELECT d.dept_name
+                                              AS "Deparment Name",
        CONCAT(e.first_name, ' ', e.last_name) AS "Department Manager",
        s.salary                               AS Salary
 FROM employees as e
@@ -116,5 +120,6 @@ FROM employees AS emp
          JOIN employees AS mgr ON dm.emp_no = mgr.emp_no
 WHERE de.to_date = '9999-01-01'
   AND dm.to_date = '9999-01-01'
-ORDER BY d.dept_name;
+ORDER BY d.dept_name,mgr.first_name,emp.emp_no;
+
 
